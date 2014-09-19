@@ -26,11 +26,11 @@
             <artifactId>primefaces</artifactId>
             <version>5.0</version>
         </dependency>
-        <dependency>  
-            <groupId>org.primefaces.themes</groupId>  
-            <artifactId>all-themes</artifactId>  
-            <version>1.0.0</version>  
-        </dependency> 
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>le-frog</artifactId>
+            <version>1.0.10</version>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -87,5 +87,6 @@
             </plugin>
         </plugins>
     </build>
+    
 
 </project>
