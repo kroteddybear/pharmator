@@ -36,7 +36,7 @@ public class DocumentManaged {
         this.selectedDocument = selectedDocument;
     }
     
-    public String getDocument() throws SQLException {
+    public String setDocument() throws SQLException {
         ConnectBDD b = new ConnectBDD();
         if (b == null) {
             throw new SQLException("Can't get database connection");
@@ -56,7 +56,7 @@ public class DocumentManaged {
         }
     }
     
-    public List<Document> putDocument() throws SQLException {
+    public List<Document> getDocument() throws SQLException {
         List<Document> list = new ArrayList<>();
         //get database connection
         ConnectBDD b = new ConnectBDD();

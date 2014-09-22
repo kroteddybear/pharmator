@@ -11,12 +11,35 @@
         Hello from Facelets
         <br />
         <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+        <h:panelGrid columns="2" cellpadding="10">  
+ 
+			<h:form>  
+
+                <p:panel header="Enregistrement d'un document">  
+
+                    <h:panelGrid columns="3" cellpadding="5">  
+                        <h:outputText value="Nom : *" />  
+                                    
+                        <h:inputText id="name" value="#{docM.selectedDocument.name}" >
+                        <f:ajax event="blur" render="docMessage" />
+                        </h:inputText>
+                        <h:message id="docMessage" for="doc" errorClass="erreur" /> 
+                    </h:panelGrid>  
+
+                </p:panel>  
+
+                <!-- Envoie le formulaire et passe a la page test2.xhtml -->
+                <p:commandButton value="Save" action="#{docM.setDocument()}"/>  
+
+            </h:form>
+			
+        </h:panelGrid>
         <p:tab id="tab1" title="Liste des adhérents">  
         <h:panelGrid columns="2" cellpadding="10">                      
                     
             <h:form>  
 
-                <p:dataTable id="tableDocument" var="doc" value="#{documentManaged.putDocument()}" sortMode="multiple" rows="10" paginator="true">  
+                <p:dataTable id="tableDocument" var="doc" value="#{docM.getDocument()}" sortMode="multiple" rows="10" paginator="true">  
                     <f:facet name="header">                         
                         Documents 
                     </f:facet>
