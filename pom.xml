@@ -8,7 +8,14 @@
     <packaging>war</packaging>
 
     <name>Pharmator</name>
-
+    <repositories>
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -28,7 +35,7 @@
         </dependency>
         <dependency>
             <groupId>org.primefaces.themes</groupId>
-            <artifactId>le-frog</artifactId>
+            <artifactId>redmond</artifactId>
             <version>1.0.10</version>
         </dependency>
         <dependency>
@@ -37,6 +44,7 @@
             <version>5.1.6</version>
         </dependency>
     </dependencies>
+    
 
     <build>
         <plugins>
