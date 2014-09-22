@@ -34,9 +34,9 @@ public class ConnectBDD {
     private Connection myConnexion;
     private Statement myStatement;
     
-    private final String MYURL = "jdbc:mysql://localhost/projetannuel";
+    private final String MYURL = "jdbc:mysql://localhost/pharmator";
     private final String MYUSER= "root";
-    private final String MYPASSWORD= "projetannuel2014";
+    private final String MYPASSWORD= "root";
     
     
     public ConnectBDD(){
