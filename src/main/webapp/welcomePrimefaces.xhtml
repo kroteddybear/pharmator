@@ -25,7 +25,7 @@
                     Footer
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                <p:layoutUnit position="west" size="250" header="Left" collapsible="true">
                     <p:menu>
                         <p:submenu label="Resources">
                             <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
@@ -39,7 +39,49 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                    Welcome to PrimeFaces
+                    <h:panelGrid columns="2" cellpadding="10">  
+ 
+			<h:form>  
+
+                <p:panel header="Enregistrement d'un document">  
+
+                    <h:panelGrid columns="3" cellpadding="5">  
+                        <h:outputText value="Nom : *" />  
+                                    
+                        <h:inputText id="name" value="#{docM.selectedDocument.name}" >
+                        <f:ajax event="blur" render="docMessage" />
+                        </h:inputText>
+                        <h:message id="docMessage" for="doc" errorClass="erreur" /> 
+                    </h:panelGrid>  
+
+                </p:panel>  
+
+                <!-- Envoie le formulaire -->
+                <p:commandButton value="Save" action="#{docM.setDocument()}"/>  
+
+            </h:form>
+			
+        </h:panelGrid>
+        <p:tab id="tab1" title="Liste des adhérents">  
+        <h:panelGrid columns="2" cellpadding="10">                      
+                    
+            <h:form>  
+
+                <p:dataTable id="tableDocument" var="doc" value="#{docM.getDocument()}" sortMode="multiple" rows="10" paginator="true">  
+                    <f:facet name="header">                         
+                        Documents 
+                    </f:facet>
+
+                    <p:column sortBy="nom" headerText="Nom">  
+                        <h:outputText value="#{doc.name}" />  
+                    </p:column>  
+
+                </p:dataTable>
+
+            </h:form>
+					
+        </h:panelGrid>  
+    </p:tab>  
                 </p:layoutUnit>
 
             </p:layout>
