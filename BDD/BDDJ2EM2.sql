@@ -15,7 +15,6 @@ DROP TABLE IF EXISTS OBJECTS ;
 CREATE TABLE OBJECTS (IdObject int AUTO_INCREMENT NOT NULL,
 ObjectsName VARCHAR(30),
 CreateDate DATE,
-ObjectsStatus VARCHAR(30),
 ObjectsPath VARCHAR(50),
 PRIMARY KEY (IdObject) ) ENGINE=InnoDB;
 
@@ -42,17 +41,24 @@ INSERT INTO USERS (UserFirstName, UserLastName, UserLogin,UserPassWord) VALUES (
 INSERT INTO USERS (UserFirstName, UserLastName, UserLogin,UserPassWord) VALUES ('RERE','Heia','hrere','toto');
 
 
-INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsStatus,ObjectsPath) VALUES ('firstDoc',"2014/09/19",'validé','rootFolder');
-INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsStatus,ObjectsPath) VALUES ('secondDoc',"2014/09/20",'rejeté','rootFolder');
-INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsStatus,ObjectsPath) VALUES ('thirdDoc',"2014/09/21",'en attente de validation','rootFolder');
+INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('firstDoc',"2014/09/19",'rootFolder');
+INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('secondDoc',"2014/09/20",'rootFolder');
+INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('thirdDoc',"2014/09/21",'rootFolder');
+INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('forDoc',"2015/09/14",'rootFolder');
+INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('fiveDoc',"2008/09/11",'rootFolder');
 
-INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('autor');
+INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('Autor');
 INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('validator');
-INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('agitator');
+INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('Agitator');
 INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('NumberOfView');
-INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('State');
+INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('Status');
 
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,1,"tedy");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,2,"alan");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (2,2,"moi");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,3,"toto");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,5,"Unvalidate");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (2,5,"InProgress");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (3,5,"Validate");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (4,5,"Reject");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (5,5,"Archived");
+
