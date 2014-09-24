@@ -40,51 +40,52 @@
 
                 <p:layoutUnit position="center">
                     <h:panelGrid columns="2" cellpadding="10">  
- 
-			<h:form>  
+                        <p:chart type="pie" model="#{docM.pie}" style="width:400px;height:300px" />
+                        <h:form>  
 
-                <p:panel header="Enregistrement d'un document">  
+                            <p:panel header="Enregistrement d'un document">  
 
-                    <h:panelGrid columns="3" cellpadding="5">  
-                        <h:outputText value="Nom : *" />  
-                                    
-                        <h:inputText id="name" value="#{docM.selectedDocument.name}" >
-                        <f:ajax event="blur" render="docMessage" />
-                        </h:inputText>
-                        <h:message id="docMessage" for="doc" errorClass="erreur" /> 
-                    </h:panelGrid>  
+                                <h:panelGrid columns="3" cellpadding="5">  
+                                    <h:outputText value="Nom : *" />  
 
-                </p:panel>  
+                                    <h:inputText id="name" value="#{docM.selectedDocument.name}" >
+                                        <f:ajax event="blur" render="docMessage" />
+                                    </h:inputText>
+                                    <h:message id="docMessage" for="doc" errorClass="erreur" /> 
+                                </h:panelGrid>  
 
-                <!-- Envoie le formulaire -->
-                <p:commandButton value="Save" action="#{docM.setDocument()}"/>  
+                            </p:panel>  
 
-            </h:form>
-			
-        </h:panelGrid>
-        <p:tab id="tab1" title="Liste des adhérents">  
-        <h:panelGrid columns="2" cellpadding="10">                      
-                    
-            <h:form>  
+                            <!-- Envoie le formulaire -->
+                            <p:commandButton value="Save" action="#{docM.setDocument()}"/>  
 
-                <p:dataTable id="tableDocument" var="doc" value="#{docM.getDocument()}" sortMode="multiple" rows="10" paginator="true">  
-                    <f:facet name="header">                         
-                        Documents 
-                    </f:facet>
+                        </h:form>
 
-                    <p:column sortBy="nom" headerText="Nom">  
-                        <h:outputText value="#{doc.name}" />  
-                    </p:column>  
+                    </h:panelGrid>
+                    <p:tab id="tab1" title="Liste des adhérents">  
+                        <h:panelGrid columns="2" cellpadding="10">                      
 
-                </p:dataTable>
+                            <h:form>  
 
-            </h:form>
-					
-        </h:panelGrid>  
-    </p:tab>  
+                                <p:dataTable id="tableDocument" var="doc" value="#{docM.getDocument()}" sortMode="multiple" rows="10" paginator="true">  
+                                    <f:facet name="header">                         
+                                        Documents 
+                                    </f:facet>
+
+                                    <p:column sortBy="nom" headerText="Nom">  
+                                        <h:outputText value="#{doc.name}" />  
+                                    </p:column>  
+
+                                </p:dataTable>
+
+                            </h:form>
+
+                        </h:panelGrid>  
+                    </p:tab>  
                 </p:layoutUnit>
 
             </p:layout>
+
 
         </h:body>
 
