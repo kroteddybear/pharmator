@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,13 +20,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.model.chart.PieChartModel;
 import tools.ConnectBDD;
-@ManagedBean(name="docM")
+
+@ManagedBean(name = "docM")
 @SessionScoped
 /**
  *
  * @author Teddy
  */
 public class DocumentManaged {
+
     private Document selectedDocument;
     private PieChartModel pie;
 
@@ -39,14 +42,14 @@ public class DocumentManaged {
      * @throws SQLException
      */
     @PostConstruct
-    public void init(){
+    public void init() {
         try {
             createPie();
         } catch (SQLException ex) {
             Logger.getLogger(DocumentManaged.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public Document getSelectedDocument() {
         return selectedDocument;
     }
@@ -62,7 +65,7 @@ public class DocumentManaged {
     public void setPie(PieChartModel pie) {
         this.pie = pie;
     }
-    
+
     public String setDocument() throws SQLException {
         ConnectBDD b = new ConnectBDD();
         if (b == null) {
@@ -82,7 +85,7 @@ public class DocumentManaged {
             return "failed";
         }
     }
-    
+
     public List<Document> getDocument() throws SQLException {
         List<Document> list = new ArrayList<>();
         //get database connection
@@ -101,31 +104,36 @@ public class DocumentManaged {
         }
         return list;
     }
-    
+
     public void createPie() throws SQLException {
         this.pie = new PieChartModel();
-        int noVal = 0;
-        int inProg = 0;
-        int Val = 0;
-        int archived = 0;
-        
+        ArrayList<String> statList = new ArrayList<>();
+
         // Requete
         ConnectBDD b = new ConnectBDD();
         Connection con = b.getMyConnexion();
         if (con == null) {
             throw new SQLException("Can't get database connection");
         }
-        PreparedStatement ps = con.prepareStatement("select count(*) as Count from OBJECTS inner join LINK on OBJECTS.IdObject = LINK.IdObject inner join OBJECTSPROPERTIES on LINK.IdProperty = OBJECTSPROPERTIES WHERE.IdProperty;");
+        PreparedStatement ps = con.prepareStatement("select PropertyValue from OBJECTS inner join LINK on OBJECTS.IdObject = LINK.IdObject inner join OBJECTSPROPERTIES on LINK.IdProperty = OBJECTSPROPERTIES.IdProperty WHERE PropertyName = 'Status' GROUP BY PropertyValue;");
         //get customer data from database
         ResultSet result = ps.executeQuery();
         while (result.next()) {
-            noVal = result.getInt("Count");
+            statList.add(result.getString("PropertyValue"));
         }
-        this.pie.set("Non validé", noVal);
-        this.pie.set("En cours de validation", inProg);
-        this.pie.set("Validé", Val);
-        this.pie.set("Archivé", archived);
-         
+
+        for (String it : statList) {
+            
+            ps = con.prepareStatement("select Count(*) as Count from OBJECTS inner join LINK on OBJECTS.IdObject = LINK.IdObject inner join OBJECTSPROPERTIES on LINK.IdProperty = OBJECTSPROPERTIES.IdProperty WHERE PropertyName = 'Status' and PropertyValue = '" + it + "';");
+            //get customer data from database
+            result = ps.executeQuery();
+            while (result.next()) {
+                System.out.println("NOM STATUT : "+it);
+                System.out.println("NB DOC : "+result.getInt("Count"));
+                this.pie.set(it, result.getInt("Count"));
+            }
+        }
+
         this.pie.setTitle("Etat des documents");
         this.pie.setLegendPosition("n");
         this.pie.setFill(false);
