@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -32,9 +34,17 @@ public class DocumentManaged {
         pie = new PieChartModel();
     }
 
+    /**
+     *
+     * @throws SQLException
+     */
     @PostConstruct
-    public void init() {
-        createPie();
+    public void init(){
+        try {
+            createPie();
+        } catch (SQLException ex) {
+            Logger.getLogger(DocumentManaged.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public Document getSelectedDocument() {
@@ -92,13 +102,29 @@ public class DocumentManaged {
         return list;
     }
     
-    public void createPie() {
+    public void createPie() throws SQLException {
         this.pie = new PieChartModel();
-         
-        this.pie.set("Non validé", 540);
-        this.pie.set("En cours de validation", 325);
-        this.pie.set("Validé", 702);
-        this.pie.set("Archivé", 421);
+        int noVal = 0;
+        int inProg = 0;
+        int Val = 0;
+        int archived = 0;
+        
+        // Requete
+        ConnectBDD b = new ConnectBDD();
+        Connection con = b.getMyConnexion();
+        if (con == null) {
+            throw new SQLException("Can't get database connection");
+        }
+        PreparedStatement ps = con.prepareStatement("select count(*) as Count from OBJECTS inner join LINK on OBJECTS.IdObject = LINK.IdObject inner join OBJECTSPROPERTIES on LINK.IdProperty = OBJECTSPROPERTIES WHERE.IdProperty;");
+        //get customer data from database
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+            noVal = result.getInt("Count");
+        }
+        this.pie.set("Non validé", noVal);
+        this.pie.set("En cours de validation", inProg);
+        this.pie.set("Validé", Val);
+        this.pie.set("Archivé", archived);
          
         this.pie.setTitle("Etat des documents");
         this.pie.setLegendPosition("n");
