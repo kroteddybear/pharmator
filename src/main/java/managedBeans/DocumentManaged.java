@@ -101,9 +101,9 @@ public class DocumentManaged {
         this.pie.set("Archivé", 421);
          
         this.pie.setTitle("Etat des documents");
-        this.pie.setLegendPosition("e");
+        this.pie.setLegendPosition("n");
         this.pie.setFill(false);
         this.pie.setShowDataLabels(true);
-        this.pie.setDiameter(150);
+        this.pie.setDiameter(100);
     }
 }

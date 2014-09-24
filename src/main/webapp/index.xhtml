@@ -36,11 +36,16 @@
                         </p:submenu>
 
                     </p:menu>
+                    
+                </p:layoutUnit>
+                
+                <p:layoutUnit position="east" size="250" closable="true" collapsible="true">
+                    <p:chart type="pie" model="#{docM.pie}" style="width:240px;height:400px" />
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
                     <h:panelGrid columns="2" cellpadding="10">  
-                        <p:chart type="pie" model="#{docM.pie}" style="width:400px;height:300px" />
+                        
                         <h:form>  
 
                             <p:panel header="Enregistrement d'un document">  
