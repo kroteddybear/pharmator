@@ -15,6 +15,8 @@ DROP TABLE IF EXISTS OBJECTS ;
 CREATE TABLE OBJECTS (IdObject int AUTO_INCREMENT NOT NULL,
 ObjectsName VARCHAR(30),
 CreateDate DATE,
+ObjectsStatus VARCHAR(30),
+ObjectsPath VARCHAR(50),
 PRIMARY KEY (IdObject) ) ENGINE=InnoDB;
 
 
@@ -40,9 +42,9 @@ INSERT INTO USERS (UserFirstName, UserLastName, UserLogin,UserPassWord) VALUES (
 INSERT INTO USERS (UserFirstName, UserLastName, UserLogin,UserPassWord) VALUES ('RERE','Heia','hrere','toto');
 
 
-INSERT INTO OBJECTS (ObjectsName,CreateDate) VALUES ('firstDoc',"2014/09/19");
-INSERT INTO OBJECTS (ObjectsName,CreateDate) VALUES ('secondDoc',"2014/09/20");
-INSERT INTO OBJECTS (ObjectsName,CreateDate) VALUES ('thirdDoc',"2014/09/21");
+INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsStatus,ObjectsPath) VALUES ('firstDoc',"2014/09/19",'validé','rootFolder');
+INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsStatus,ObjectsPath) VALUES ('secondDoc',"2014/09/20",'rejeté','rootFolder');
+INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsStatus,ObjectsPath) VALUES ('thirdDoc',"2014/09/21",'en attente de validation','rootFolder');
 
 INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('autor');
 INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('validator');
