@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.model.chart.PieChartModel;
 import tools.ConnectBDD;
 @ManagedBean(name="docM")
 @SessionScoped
@@ -23,9 +24,11 @@ import tools.ConnectBDD;
  */
 public class DocumentManaged {
     private Document selectedDocument;
+    private PieChartModel pie;
 
     public DocumentManaged() {
         selectedDocument = new Document();
+        pie = new PieChartModel();
     }
 
     public Document getSelectedDocument() {
@@ -34,6 +37,14 @@ public class DocumentManaged {
 
     public void setSelectedDocument(Document selectedDocument) {
         this.selectedDocument = selectedDocument;
+    }
+
+    public PieChartModel getPie() {
+        return pie;
+    }
+
+    public void setPie(PieChartModel pie) {
+        this.pie = pie;
     }
     
     public String setDocument() throws SQLException {
@@ -73,5 +84,17 @@ public class DocumentManaged {
             list.add(document);
         }
         return list;
+    }
+    
+    public void createPie() {
+        pie = new PieChartModel();
+         
+        pie.set("Brand 1", 540);
+        pie.set("Brand 2", 325);
+        pie.set("Brand 3", 702);
+        pie.set("Brand 4", 421);
+         
+        pie.setTitle("Simple Pie");
+        pie.setLegendPosition("w");
     }
 }
