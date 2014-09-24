@@ -12,8 +12,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.model.chart.PieChartModel;
 import tools.ConnectBDD;
 @ManagedBean(name="docM")
 @SessionScoped
@@ -23,17 +25,32 @@ import tools.ConnectBDD;
  */
 public class DocumentManaged {
     private Document selectedDocument;
+    private PieChartModel pie;
 
     public DocumentManaged() {
         selectedDocument = new Document();
+        pie = new PieChartModel();
     }
 
+    @PostConstruct
+    public void init() {
+        createPie();
+    }
+    
     public Document getSelectedDocument() {
         return selectedDocument;
     }
 
     public void setSelectedDocument(Document selectedDocument) {
         this.selectedDocument = selectedDocument;
+    }
+
+    public PieChartModel getPie() {
+        return pie;
+    }
+
+    public void setPie(PieChartModel pie) {
+        this.pie = pie;
     }
     
     public String setDocument() throws SQLException {
@@ -73,5 +90,20 @@ public class DocumentManaged {
             list.add(document);
         }
         return list;
+    }
+    
+    public void createPie() {
+        this.pie = new PieChartModel();
+         
+        this.pie.set("Non validé", 540);
+        this.pie.set("En cours de validation", 325);
+        this.pie.set("Validé", 702);
+        this.pie.set("Archivé", 421);
+         
+        this.pie.setTitle("Etat des documents");
+        this.pie.setLegendPosition("e");
+        this.pie.setFill(false);
+        this.pie.setShowDataLabels(true);
+        this.pie.setDiameter(150);
     }
 }
