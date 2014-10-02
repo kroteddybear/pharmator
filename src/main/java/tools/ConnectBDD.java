@@ -4,13 +4,11 @@ package tools;
 import java.sql.Connection;
 // gestion des pilotes
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 // erreurs
 import java.sql.SQLException;
 // une instruction
 import java.sql.Statement;
 // un resultat (lignes/colonnes)
-import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
