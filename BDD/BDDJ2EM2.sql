@@ -52,6 +52,8 @@ INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('validator');
 INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('Agitator');
 INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('NumberOfView');
 INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('Status');
+INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('PathWay');
+
 
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,1,"tedy");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,2,"alan");

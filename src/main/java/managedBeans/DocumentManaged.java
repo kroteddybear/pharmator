@@ -74,9 +74,13 @@ public class DocumentManaged {
         try {
             /* Récupération des paramètres d'URL saisis par l'utilisateur */
             String paramName = this.selectedDocument.getName();
+            String paramPathway = this.selectedDocument.getPathway();
             /* Exécution d'une requête de modification de la BD (INSERT, UPDATE, DELETE, CREATE, etc.). */
-            b.getMyStatement().executeUpdate("INSERT INTO OBJECTS(ObjectsName) VALUES ('" + paramName + "');");
-            b.getMyConnexion().commit();
+            b.getMyStatement().executeUpdate("INSERT INTO OBJECTS (ObjectsName, CreateDate) VALUES ('" + paramName + "',  NOW() );");
+            ResultSet result= b.getMyStatement().executeQuery("SET @last:=LAST_INSERT_ID()");
+            int ID = result.getInt("@last");
+            b.getMyStatement().executeUpdate("INSERT INTO LINK (IdObject, IdProperty, PropertyValue) VALUES ("+ID+", 5,'InProgress');");
+            b.getMyStatement().executeUpdate("INSERT INTO LINK (IdObject, IdProperty, PropertyValue) VALUES ("+ID+", 6,'"+paramPathway+"');");
             return "success";
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
@@ -94,12 +98,14 @@ public class DocumentManaged {
         if (con == null) {
             throw new SQLException("Can't get database connection");
         }
-        PreparedStatement ps = con.prepareStatement("select * from OBJECTS;");
+        PreparedStatement ps = con.prepareStatement("select * from OBJECTS inner join LINK on OBJECTS.IdObject=LINK.IdObject Where IdProperty=5;");
         //get customer data from database
         ResultSet result = ps.executeQuery();
         while (result.next()) {
             Document document = new Document();
             document.setName(result.getString("ObjectsName"));
+            document.setDate(result.getDate("CreateDate"));
+            document.setStatut(result.getString("PropertyValue"));
             list.add(document);
         }
         return list;
@@ -128,16 +134,14 @@ public class DocumentManaged {
             //get customer data from database
             result = ps.executeQuery();
             while (result.next()) {
-                System.out.println("NOM STATUT : "+it);
-                System.out.println("NB DOC : "+result.getInt("Count"));
                 this.pie.set(it, result.getInt("Count"));
             }
         }
 
         this.pie.setTitle("Etat des documents");
-        this.pie.setLegendPosition("n");
+        this.pie.setLegendPosition("s");
         this.pie.setFill(false);
         this.pie.setShowDataLabels(true);
-        this.pie.setDiameter(100);
+        this.pie.setDiameter(240);
     }
 }
