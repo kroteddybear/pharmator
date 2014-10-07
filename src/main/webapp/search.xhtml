@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- appelle le template layoutbis.xhtml -->
+    <ui:composition template="template.xhtml"> 
+        <!-- Defini la partie nommée contenu dans le template par le bloc qui suit -->
+        <ui:define name="content"> 
+                    
+                    <p:tab id="tab1" title="Document list">  
+                        <h:panelGrid columns="2" cellpadding="10">                      
+
+                            <h:form>  
+
+                                <p:dataTable id="tableDocument" var="doc" value="#{docM.getDocument()}" sortMode="multiple" rows="10" paginator="true">  
+                                    <f:facet name="header">                         
+                                        Documents 
+                                    </f:facet>
+
+                                    <p:column sortBy="#{doc.name}" headerText="Name">  
+                                        <h:outputText value="#{doc.name}" />  
+                                    </p:column>  
+                                    <p:column sortBy="#{doc.date}" headerText="Date">  
+                                        <h:outputText value="#{doc.date}" />  
+                                    </p:column> 
+                                    <p:column sortBy="#{doc.statut}" headerText="Status">  
+                                        <h:outputText value="#{doc.statut}" />  
+                                    </p:column>
+
+                                </p:dataTable>
+
+                            </h:form>
+
+                        </h:panelGrid>  
+                    </p:tab>  
+                            <!-- Fin du bloc "contenu" -->
+        </ui:define> 
+        <!-- Fin du template "layout" -->
+    </ui:composition> 
+        
+        </html>
+
