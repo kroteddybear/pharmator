@@ -9,58 +9,77 @@
     <ui:composition template="template.xhtml"> 
         <!-- Defini la partie nommée contenu dans le template par le bloc qui suit -->
         <ui:define name="content"> 
-                    <h:panelGrid columns="2" cellpadding="10">  
+                    <script type="text/javascript">
+    function handleDrop(event, ui) {
+        var droppedCar = ui.draggable;
+ 
+        droppedCar.fadeOut('fast');
+    }
+</script>
+ 
+<h:form id="carForm">
+    <p:fieldset id="availableCarsField" legend="Inprogress documents">
+        <p:dataGrid id="availableCars" var="car" value="#{docM.getDocument()}" columns="3">
+            <p:panel id="pnl" header="#{car.name}" style="text-align:center">
+                <h:panelGrid columns="1" style="width:100%">
+                    <p:graphicImage name="/pdf.gif" />
+                </h:panelGrid>
+            </p:panel>
+ 
+            <p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>
+        </p:dataGrid>
+    </p:fieldset>
+ 
+    <p:fieldset id="selectedCars" legend="Validated documents" style="margin-top:20px">
+        <p:outputPanel id="dropArea">
+            <h:outputText value="!!!Validate here!!!" rendered="#{empty docM.validateDoc}" style="font-size:24px;" />
+            <p:dataTable id="selectedCarsTable" var="car" value="#{docM.validateDoc}" rendered="#{not empty docM.validateDoc}">
+                <p:column headerText="Id">
+                    <h:outputText value="#{car.id}" />
+                </p:column>
+ 
+                <p:column headerText="Name">  
+                    <h:outputText value="#{doc.name}" />  
+                </p:column>  
+                <p:column headerText="Date">  
+                    <h:outputText value="#{doc.date}" />  
+                </p:column> 
+                <p:column headerText="Status">  
+                    <h:outputText value="#{doc.statut}" />  
+                </p:column>
 
-                        <h:form>  
-
-                            <p:panel header="Record a document">  
-
-                                <h:panelGrid columns="3" cellpadding="5">  
-                                    <h:outputText value="Name : *" />  
-
-                                    <h:inputText id="name" value="#{docM.selectedDocument.name}" >
-                                        <f:ajax event="blur" render="docMessage" />
-                                    </h:inputText>
-                                    <h:message id="docMessage" for="doc" errorClass="erreur" /> 
-                                </h:panelGrid>  
-
-                            </p:panel>  
-
-                            <!-- Envoie le formulaire -->
-                            <p:commandButton value="Save" action="#{docM.setDocument()}"/>  
-
-                        </h:form>
-
-                    </h:panelGrid>
-                    <p:tab id="tab1" title="Document list">  
-                        <h:panelGrid columns="2" cellpadding="10">                      
-
-                            <h:form>  
-
-                                <p:dataTable id="tableDocument" var="doc" value="#{docM.getDocument()}" sortMode="multiple" rows="10" paginator="true">  
-                                    <f:facet name="header">                         
-                                        Documents 
-                                    </f:facet>
-
-                                    <p:column sortBy="#{doc.name}" headerText="Name">  
-                                        <h:outputText value="#{doc.name}" />  
-                                    </p:column>  
-                                    <p:column sortBy="#{doc.date}" headerText="Date">  
-                                        <h:outputText value="#{doc.date}" />  
-                                    </p:column> 
-                                    <p:column sortBy="#{doc.pathway}" headerText="Pathway">  
-                                        <h:outputText value="#{doc.pathway}" />  
-                                    </p:column> 
-                                    <p:column sortBy="#{doc.statut}" headerText="Status">  
-                                        <h:outputText value="#{doc.statut}" />  
-                                    </p:column>
-
-                                </p:dataTable>
-
-                            </h:form>
-
-                        </h:panelGrid>  
-                    </p:tab>  
+                 <p:column style="width:32px">
+                    <p:commandButton update=":carForm:display" oncomplete="PF('carDialog').show()" icon="ui-icon-search">
+                        <f:setPropertyActionListener value="#{car}" target="#{docM.selectedDocument}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </p:outputPanel>
+    </p:fieldset>
+ 
+    <p:droppable for="selectedCars" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="availableCars" onDrop="handleDrop">
+        <p:ajax listener="#{docM.onDocValidate}" update="dropArea availableCars" />
+    </p:droppable>
+ 
+    <p:dialog header="Car Detail" widgetVar="carDialog" resizable="false" draggable="false"
+              showEffect="fade" hideEffect="fade" modal="true">
+ 
+        <p:outputPanel id="display">
+            <h:panelGrid columns="2" cellpadding="5" rendered="#{not empty docM.selectedDocument}">
+                <f:facet name="header">
+                    <p:graphicImage name="/pdf.gif"/>
+                </f:facet>
+ 
+                <h:outputText value="Name:" />
+                <h:outputText value="#{docM.selectedDocument.name}" style="font-weight:bold"/>
+ 
+                <h:outputText value="Date:" />
+                <h:outputText value="#{docM.selectedDocument.date}" style="font-weight:bold"/>
+ 
+            </h:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+</h:form> 
                             <!-- Fin du bloc "contenu" -->
         </ui:define> 
         <!-- Fin du template "layout" -->

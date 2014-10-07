@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.apache.commons.io.FilenameUtils;
+import org.primefaces.event.DragDropEvent;
 import org.primefaces.model.UploadedFile;
 import org.primefaces.model.chart.PieChartModel;
 import tools.ConnectBDD;
@@ -40,10 +41,19 @@ public class DocumentManaged {
     private Document selectedDocument;
     private UploadedFile file;
     private PieChartModel pie;
+    private List<Document> validateDoc;
 
     public DocumentManaged() {
         selectedDocument = new Document();
         pie = new PieChartModel();
+    }
+
+    public List<Document> getValidateDoc() {
+        return validateDoc;
+    }
+
+    public void setValidateDoc(List<Document> validateDoc) {
+        this.validateDoc = validateDoc;
     }
 
     public UploadedFile getFile() {
@@ -54,6 +64,12 @@ public class DocumentManaged {
         this.file = file;
     }
 
+    public void onDocValidate(DragDropEvent ddEvent) {
+        Document doc = ((Document) ddEvent.getData());
+  
+        validateDoc.add(doc);
+    }
+    
     /**
      *
      */
