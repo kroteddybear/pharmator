@@ -6,6 +6,10 @@
 package managedBeans;
 
 import beans.Document;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,8 +20,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import org.apache.commons.io.FilenameUtils;
+import org.primefaces.model.UploadedFile;
 import org.primefaces.model.chart.PieChartModel;
 import tools.ConnectBDD;
 
@@ -30,6 +38,7 @@ import tools.ConnectBDD;
 public class DocumentManaged {
 
     private Document selectedDocument;
+    private UploadedFile file;
     private PieChartModel pie;
 
     public DocumentManaged() {
@@ -37,9 +46,16 @@ public class DocumentManaged {
         pie = new PieChartModel();
     }
 
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
     /**
      *
-     * @throws SQLException
      */
     @PostConstruct
     public void init() {
@@ -67,6 +83,15 @@ public class DocumentManaged {
     }
 
     public String setDocument() throws SQLException {
+        //File folder = new File("/UploadFiles");
+        this.selectedDocument.setName(FilenameUtils.getName(file.getFileName()));
+        String extension = FilenameUtils.getExtension(file.getFileName());
+        this.selectedDocument.setPathway(FilenameUtils.getName(file.getFileName())+"."+extension);
+        if(file != null) {
+            FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
         ConnectBDD b = new ConnectBDD();
         if (b == null) {
             throw new SQLException("Can't get database connection");
@@ -76,11 +101,11 @@ public class DocumentManaged {
             String paramName = this.selectedDocument.getName();
             String paramPathway = this.selectedDocument.getPathway();
             /* Exécution d'une requête de modification de la BD (INSERT, UPDATE, DELETE, CREATE, etc.). */
-            b.getMyStatement().executeUpdate("INSERT INTO OBJECTS (ObjectsName, CreateDate) VALUES ('" + paramName + "',  NOW() );");
+            b.getMyStatement().executeUpdate("INSERT INTO OBJECTS (ObjectsName, CreateDate, ObjectsPath) VALUES ('" + paramName + "',  NOW(), "+paramPathway+" );");
             ResultSet result= b.getMyStatement().executeQuery("SET @last:=LAST_INSERT_ID()");
             int ID = result.getInt("@last");
             b.getMyStatement().executeUpdate("INSERT INTO LINK (IdObject, IdProperty, PropertyValue) VALUES ("+ID+", 5,'InProgress');");
-            b.getMyStatement().executeUpdate("INSERT INTO LINK (IdObject, IdProperty, PropertyValue) VALUES ("+ID+", 6,'"+paramPathway+"');");
+            b.getMyStatement().executeUpdate("INSERT INTO LINK (IdObject, IdProperty, PropertyValue) VALUES ("+ID+", 6,'"+extension+"');");
             return "success";
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
@@ -138,7 +163,7 @@ public class DocumentManaged {
             }
         }
 
-        this.pie.setTitle("Etat des documents");
+        this.pie.setTitle("Documents status");
         this.pie.setLegendPosition("s");
         this.pie.setFill(false);
         this.pie.setShowDataLabels(true);

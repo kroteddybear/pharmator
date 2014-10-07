@@ -13,10 +13,10 @@
 
                         <h:form>  
 
-                            <p:panel header="Enregistrement d'un document">  
+                            <p:panel header="Record a document">  
 
                                 <h:panelGrid columns="3" cellpadding="5">  
-                                    <h:outputText value="Nom : *" />  
+                                    <h:outputText value="Name : *" />  
 
                                     <h:inputText id="name" value="#{docM.selectedDocument.name}" >
                                         <f:ajax event="blur" render="docMessage" />
@@ -32,7 +32,7 @@
                         </h:form>
 
                     </h:panelGrid>
-                    <p:tab id="tab1" title="Liste des adhérents">  
+                    <p:tab id="tab1" title="Document list">  
                         <h:panelGrid columns="2" cellpadding="10">                      
 
                             <h:form>  
@@ -42,13 +42,16 @@
                                         Documents 
                                     </f:facet>
 
-                                    <p:column sortBy="#{doc.name}" headerText="Nom">  
+                                    <p:column sortBy="#{doc.name}" headerText="Name">  
                                         <h:outputText value="#{doc.name}" />  
                                     </p:column>  
                                     <p:column sortBy="#{doc.date}" headerText="Date">  
                                         <h:outputText value="#{doc.date}" />  
                                     </p:column> 
-                                    <p:column sortBy="#{doc.statut}" headerText="Statut">  
+                                    <p:column sortBy="#{doc.pathway}" headerText="Pathway">  
+                                        <h:outputText value="#{doc.pathway}" />  
+                                    </p:column> 
+                                    <p:column sortBy="#{doc.statut}" headerText="Status">  
                                         <h:outputText value="#{doc.statut}" />  
                                     </p:column>
 

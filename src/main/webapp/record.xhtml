@@ -9,14 +9,14 @@
     <ui:composition template="template.xhtml"> 
         <!-- Defini la partie nommée contenu dans le template par le bloc qui suit -->
         <ui:define name="content"> 
-            <p:tab id="tab1" title="Nouveau document">  
+            <p:tab id="tab1" title="New document">  
                 <h:panelGrid columns="2" cellpadding="10">  
                     <h:form enctype="multipart/form-data">
                         <p:growl id="messages" showDetail="true" />
 
-                        <p:fileUpload value="#{docM.selectedDocument}" mode="simple" disabled="false" />
+                        <p:fileUpload value="#{docM.file}" mode="simple"/>
 
-                        <p:commandButton value="Submit" ajax="false" actionListener="#{docM.setDocument()}" disabled="true" />
+                        <p:commandButton value="Submit" ajax="false" actionListener="#{docM.setDocument()}" />
                     </h:form>
                 </h:panelGrid>  
             </p:tab>  
