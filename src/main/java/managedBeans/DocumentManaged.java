@@ -6,16 +6,11 @@
 package managedBeans;
 
 import beans.Document;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,10 +37,21 @@ public class DocumentManaged {
     private UploadedFile file;
     private PieChartModel pie;
     private List<Document> validateDoc;
+    private List<Document> rejectedDoc;
 
     public DocumentManaged() {
         selectedDocument = new Document();
         pie = new PieChartModel();
+        validateDoc = new ArrayList<Document>();
+        rejectedDoc = new ArrayList<Document>();
+    }
+
+    public List<Document> getRejectedDoc() {
+        return rejectedDoc;
+    }
+
+    public void setRejectedDoc(List<Document> rejectedDoc) {
+        this.rejectedDoc = rejectedDoc;
     }
 
     public List<Document> getValidateDoc() {
@@ -62,12 +68,6 @@ public class DocumentManaged {
 
     public void setFile(UploadedFile file) {
         this.file = file;
-    }
-
-    public void onDocValidate(DragDropEvent ddEvent) {
-        Document doc = ((Document) ddEvent.getData());
-  
-        validateDoc.add(doc);
     }
     
     /**
@@ -98,6 +98,28 @@ public class DocumentManaged {
         this.pie = pie;
     }
 
+    public void onDocValidate(DragDropEvent ddEvent) throws SQLException{
+        Document doc = ((Document) ddEvent.getData());
+        System.out.println("id = "+ doc.getId());
+        this.validateDoc.add(doc);
+        ConnectBDD b = new ConnectBDD();
+        if (b == null) {
+            throw new SQLException("Can't get database connection");
+        }
+        b.getMyStatement().executeUpdate("update link set PropertyValue='Validate' Where IdProperty=5 and IdObject="+ doc.getId() +";");
+    }
+    
+    public void onDocRejected(DragDropEvent ddEvent) throws SQLException{
+        Document doc = ((Document) ddEvent.getData());
+        System.out.println("id = "+ doc.getId());
+        this.rejectedDoc.add(doc);
+        ConnectBDD b = new ConnectBDD();
+        if (b == null) {
+            throw new SQLException("Can't get database connection");
+        }
+        b.getMyStatement().executeUpdate("update link set PropertyValue='Reject' Where IdProperty=5 and IdObject="+ doc.getId() +";");
+    }
+    
     public String setDocument() throws SQLException {
         //File folder = new File("/UploadFiles");
         this.selectedDocument.setName(FilenameUtils.getName(file.getFileName()));
@@ -144,6 +166,7 @@ public class DocumentManaged {
         ResultSet result = ps.executeQuery();
         while (result.next()) {
             Document document = new Document();
+            document.setId(result.getInt("IdObject"));
             document.setName(result.getString("ObjectsName"));
             document.setDate(result.getDate("CreateDate"));
             document.setStatut(result.getString("PropertyValue"));
@@ -152,6 +175,28 @@ public class DocumentManaged {
         return list;
     }
 
+    public List<Document> getInprogressDocument() throws SQLException {
+        List<Document> list = new ArrayList<>();
+        //get database connection
+        ConnectBDD b = new ConnectBDD();
+        Connection con = b.getMyConnexion();
+        if (con == null) {
+            throw new SQLException("Can't get database connection");
+        }
+        PreparedStatement ps = con.prepareStatement("select * from OBJECTS inner join LINK on OBJECTS.IdObject=LINK.IdObject Where IdProperty=5 and PropertyValue='InProgress';");
+        //get customer data from database
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+            Document document = new Document();
+            document.setId(result.getInt("IdObject"));
+            document.setName(result.getString("ObjectsName"));
+            document.setDate(result.getDate("CreateDate"));
+            document.setStatut(result.getString("PropertyValue"));
+            list.add(document);
+        }
+        return list;
+    }
+    
     public void createPie() throws SQLException {
         this.pie = new PieChartModel();
         ArrayList<String> statList = new ArrayList<>();

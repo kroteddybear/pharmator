@@ -11,16 +11,16 @@
         <ui:define name="content"> 
                     <script type="text/javascript">
     function handleDrop(event, ui) {
-        var droppedCar = ui.draggable;
+        var droppedDoc = ui.draggable;
  
-        droppedCar.fadeOut('fast');
+        droppedDoc.fadeOut('fast');
     }
 </script>
  
-<h:form id="carForm">
-    <p:fieldset id="availableCarsField" legend="Inprogress documents">
-        <p:dataGrid id="availableCars" var="car" value="#{docM.getDocument()}" columns="3">
-            <p:panel id="pnl" header="#{car.name}" style="text-align:center">
+<h:form id="docForm">
+    <p:fieldset id="inprogressDocField" legend="Inprogress documents">
+        <p:dataGrid id="inprogressDocs" var="doc" value="#{docM.getInprogressDocument()}" columns="3">
+            <p:panel id="pnl" header="#{doc.name}" style="text-align:center">
                 <h:panelGrid columns="1" style="width:100%">
                     <p:graphicImage name="/pdf.gif" />
                 </h:panelGrid>
@@ -30,13 +30,11 @@
         </p:dataGrid>
     </p:fieldset>
  
-    <p:fieldset id="selectedCars" legend="Validated documents" style="margin-top:20px">
+    <p:fieldset id="selectedDocs" legend="Validated documents" style="margin-top:20px">
         <p:outputPanel id="dropArea">
             <h:outputText value="!!!Validate here!!!" rendered="#{empty docM.validateDoc}" style="font-size:24px;" />
-            <p:dataTable id="selectedCarsTable" var="car" value="#{docM.validateDoc}" rendered="#{not empty docM.validateDoc}">
-                <p:column headerText="Id">
-                    <h:outputText value="#{car.id}" />
-                </p:column>
+            <p:dataTable id="selectedDocsTable" var="doc" value="#{docM.validateDoc}" rendered="#{not empty docM.validateDoc}">
+                
  
                 <p:column headerText="Name">  
                     <h:outputText value="#{doc.name}" />  
@@ -44,24 +42,46 @@
                 <p:column headerText="Date">  
                     <h:outputText value="#{doc.date}" />  
                 </p:column> 
-                <p:column headerText="Status">  
-                    <h:outputText value="#{doc.statut}" />  
-                </p:column>
 
                  <p:column style="width:32px">
-                    <p:commandButton update=":carForm:display" oncomplete="PF('carDialog').show()" icon="ui-icon-search">
-                        <f:setPropertyActionListener value="#{car}" target="#{docM.selectedDocument}" />
+                    <p:commandButton update=":docForm:display" oncomplete="PF('docDialog').show()" icon="ui-icon-search">
+                        <f:setPropertyActionListener value="#{doc}" target="#{docM.selectedDocument}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </p:outputPanel>
+    </p:fieldset>
+    
+    <p:fieldset id="rejectedDocs" legend="Rejected documents" style="margin-top:20px">
+        <p:outputPanel id="dropArea2">
+            <h:outputText value="!!!Reject here!!!" rendered="#{empty docM.rejectedDoc}" style="font-size:24px;" />
+            <p:dataTable id="rejectedDocsTable" var="doc" value="#{docM.rejectedDoc}" rendered="#{not empty docM.rejectedDoc}">
+                
+                <p:column headerText="Name">  
+                    <h:outputText value="#{doc.name}" />  
+                </p:column>  
+                <p:column headerText="Date">  
+                    <h:outputText value="#{doc.date}" />  
+                </p:column> 
+
+                 <p:column style="width:32px">
+                    <p:commandButton update=":docForm:display" oncomplete="PF('docDialog').show()" icon="ui-icon-search">
+                        <f:setPropertyActionListener value="#{doc}" target="#{docM.rejectedDoc}" />
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
         </p:outputPanel>
     </p:fieldset>
  
-    <p:droppable for="selectedCars" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="availableCars" onDrop="handleDrop">
-        <p:ajax listener="#{docM.onDocValidate}" update="dropArea availableCars" />
+    <p:droppable for="selectedDocs" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="inprogressDocs" onDrop="handleDrop">
+        <p:ajax listener="#{docM.onDocValidate}" update="dropArea inprogressDocs" />
+    </p:droppable>
+    
+    <p:droppable for="rejectedDocs" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="inprogressDocs" onDrop="handleDrop">
+        <p:ajax listener="#{docM.onDocRejected}" update="dropArea2 inprogressDocs" />
     </p:droppable>
  
-    <p:dialog header="Car Detail" widgetVar="carDialog" resizable="false" draggable="false"
+    <p:dialog header="Document Detail" widgetVar="docDialog" resizable="false" draggable="false"
               showEffect="fade" hideEffect="fade" modal="true">
  
         <p:outputPanel id="display">
