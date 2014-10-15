@@ -16,13 +16,13 @@
         droppedDoc.fadeOut('fast');
     }
 </script>
- 
+            
 <h:form id="docForm">
     <p:fieldset id="inprogressDocField" legend="Inprogress documents">
         <p:dataGrid id="inprogressDocs" var="doc" value="#{docM.getInprogressDocument()}" columns="3">
             <p:panel id="pnl" header="#{doc.name}" style="text-align:center">
                 <h:panelGrid columns="1" style="width:100%">
-                    <p:graphicImage name="/pdf.gif" />
+                    <img src="pdf.gif" style="width: 40px"/>
                 </h:panelGrid>
             </p:panel>
  
@@ -66,7 +66,7 @@
 
                  <p:column style="width:32px">
                     <p:commandButton update=":docForm:display" oncomplete="PF('docDialog').show()" icon="ui-icon-search">
-                        <f:setPropertyActionListener value="#{doc}" target="#{docM.rejectedDoc}" />
+                        <f:setPropertyActionListener value="#{doc}" target="#{docM.selectedDocument}" />
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
@@ -87,7 +87,7 @@
         <p:outputPanel id="display">
             <h:panelGrid columns="2" cellpadding="5" rendered="#{not empty docM.selectedDocument}">
                 <f:facet name="header">
-                    <p:graphicImage name="/pdf.gif"/>
+                    <img src="pdf.gif" style="width: 40px"/>
                 </f:facet>
  
                 <h:outputText value="Name:" />
