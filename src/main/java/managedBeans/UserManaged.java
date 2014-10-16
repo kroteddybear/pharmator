@@ -51,7 +51,7 @@ public class UserManaged {
         if (con == null) {
             throw new SQLException("Can't get database connection");
         }
-        PreparedStatement ps = con.prepareStatement("select count(*) as nbutil, UserFirstName, UserLastName  from USERS where UserLogin = '" + this.currentUser.getLogin() + "' and UserPassWord = '" + this.currentUser.getPassword() + "'");
+        PreparedStatement ps = con.prepareStatement("select count(*) as nbutil, UserFirstName, UserLastName, IsValidator  from USERS where UserLogin = '" + this.currentUser.getLogin() + "' and UserPassWord = '" + this.currentUser.getPassword() + "'");
         //get customer data from database
         System.out.println("avant exec requete");
         ResultSet result = ps.executeQuery();
@@ -61,7 +61,8 @@ public class UserManaged {
                 this.isAuthenticated = true;
                 this.currentUser.setFirstName(result.getString("UserFirstName"));
                 this.currentUser.setLastName(result.getString("UserLastName"));
-                               
+                this.currentUser.setIsValidator(result.getBoolean("IsValidator"));
+                                            
                 System.out.println("identify OK");
                 resultat="success";
                 
@@ -75,5 +76,5 @@ public class UserManaged {
                 
         return resultat;     
     }
-
+      
 }

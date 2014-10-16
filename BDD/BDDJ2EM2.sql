@@ -8,6 +8,7 @@ UserFirstName VARCHAR(30),
 UserLastName VARCHAR(30),
 UserLogin VARCHAR(30),
 UserPassWord VARCHAR(30),
+isValidator BOOLEAN,
 PRIMARY KEY (IdUser) ) ENGINE=InnoDB;
 
 
@@ -35,10 +36,11 @@ ALTER TABLE LINK ADD CONSTRAINT FK_LINK_IdObject FOREIGN KEY (IdObject) REFERENC
 ALTER TABLE LINK ADD CONSTRAINT FK_LINK_IdProperty FOREIGN KEY (IdProperty) REFERENCES OBJECTSPROPERTIES (IdProperty);
 
 
-INSERT INTO USERS (UserFirstName, UserLastName, UserLogin,UserPassWord) VALUES ('GILLET','Jérémy','jgillet','toto');
-INSERT INTO USERS (UserFirstName, UserLastName, UserLogin,UserPassWord) VALUES ('DELAVALLEE','Teddy','tdelavallee','toto');
-INSERT INTO USERS (UserFirstName, UserLastName, UserLogin,UserPassWord) VALUES ('BELAUD','Audrey','abelaud','toto');
-INSERT INTO USERS (UserFirstName, UserLastName, UserLogin,UserPassWord) VALUES ('RERE','Heia','hrere','toto');
+INSERT INTO USERS (UserFirstName, UserLastName, UserLogin,UserPassWord,isValidator) VALUES ('GILLET','Jérémy','jgillet','toto',true);
+INSERT INTO USERS (UserFirstName, UserLastName, UserLogin,UserPassWord,isValidator) VALUES ('DELAVALLEE','Teddy','tdelavallee','toto',true);
+INSERT INTO USERS (UserFirstName, UserLastName, UserLogin,UserPassWord,isValidator) VALUES ('BELAUD','Audrey','abelaud','toto',false);
+INSERT INTO USERS (UserFirstName, UserLastName, UserLogin,UserPassWord,isValidator) VALUES 
+('RERE','Heia','hrere','toto',false);
 
 
 INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('firstDoc',"2014/09/19",'rootFolder');

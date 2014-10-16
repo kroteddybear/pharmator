@@ -19,7 +19,16 @@ public class User {
     private String lastName;
     private String login;
     private String password;
+    private Boolean isValidator;
 
+    public Boolean getIsValidator() {
+        return isValidator;
+    }
+
+    public void setIsValidator(Boolean isValidator) {
+        this.isValidator = isValidator;
+    }
+    
     public String getLogin() {
         return login;
     }
