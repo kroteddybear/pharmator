@@ -18,8 +18,8 @@
 </script>
             
 <h:form id="docForm">
-    <p:fieldset id="inprogressDocField" legend="Inprogress documents">
-        <p:dataGrid id="inprogressDocs" var="doc" value="#{docM.getInprogressDocument()}" columns="4">
+    <p:fieldset id="inprogressDocField" legend="Documents to validate">
+        <p:dataGrid id="inprogressDocs" var="doc" value="#{docM.getToValidateDocument()}" columns="4">
             <p:panel id="pnl" header="#{doc.name}" style="text-align:center">
                 <h:panelGrid columns="1" style="width:100%">
                     <p:graphicImage value="#{doc.type}.gif" style="width:40px" />
@@ -81,8 +81,7 @@
         <p:ajax listener="#{docM.onDocRejected}" update="dropArea2 inprogressDocs" />
     </p:droppable>
  
-    <p:dialog header="Document Detail" widgetVar="docDialog" resizable="false" draggable="false"
-              showEffect="fade" hideEffect="fade" modal="true">
+    <p:dialog header="Document Detail" widgetVar="docDialog" resizable="false" draggable="false" closable="true" showEffect="fade" hideEffect="fade" modal="true">
  
         <p:outputPanel id="display">
             <h:panelGrid columns="2" cellpadding="5" rendered="#{not empty docM.selectedDocument}">
@@ -95,6 +94,9 @@
  
                 <h:outputText value="Date:" />
                 <h:outputText value="#{docM.selectedDocument.date}" style="font-weight:bold"/>
+                
+                <h:outputText value="Author:" />
+                <h:outputText value="#{docM.selectedDocument.author}" style="font-weight:bold"/>
  
             </h:panelGrid>
         </p:outputPanel>

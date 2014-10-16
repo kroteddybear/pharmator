@@ -15,6 +15,7 @@ public class Document implements Serializable{
     private Date date;
     private String pathway;
     private String type;
+    private String author;
 
     public Document() {
         name=" ";
@@ -22,6 +23,15 @@ public class Document implements Serializable{
         pathway=" ";
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    
     public String getType() {
         return type;
     }
