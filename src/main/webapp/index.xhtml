@@ -108,6 +108,71 @@
                 </h:form> 
 
             </c:if>
+            
+            <c:if test="#{UserM.currentUser.isValidator == 'false'}">
+            
+                <h:form id="docForm">
+                    <p:fieldset id="inprogressDocField" legend="Rejected documents">
+                        <p:dataGrid id="inprogressDocs" var="doc" value="#{docM.getRejectedDocument()}" columns="4">
+                            <p:panel id="pnl" header="#{doc.name}" style="text-align:center">
+                                <h:panelGrid columns="1" style="width:100%">
+                                    <p:graphicImage value="#{doc.type}.gif" style="width:40px" />
+                                </h:panelGrid>
+                            </p:panel>
+
+                            <p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>
+                        </p:dataGrid>
+                    </p:fieldset>
+
+                    <p:fieldset id="selectedDocs" legend="Documents to validate" style="margin-top:20px">
+                        <p:outputPanel id="dropArea">
+                            <h:outputText value="!!!Submit to validate here!!!" rendered="#{empty docM.getToValidateDocument()}" style="font-size:24px;" />
+                            <p:dataTable id="selectedDocsTable" var="doc" value="#{docM.getToValidateDocument()}" rendered="#{not empty docM.getToValidateDocument()}">
+
+                                <p:column headerText="Name">  
+                                    <h:outputText value="#{doc.name}" />  
+                                </p:column>  
+                                <p:column headerText="Date">  
+                                    <h:outputText value="#{doc.date}" />  
+                                </p:column> 
+
+                                <p:column style="width:32px">
+                                    <p:commandButton update=":docForm:display" oncomplete="PF('docDialog').show()" icon="ui-icon-search">
+                                        <f:setPropertyActionListener value="#{doc}" target="#{docM.selectedDocument}" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </p:outputPanel>
+                    </p:fieldset>
+
+                    <p:droppable for="selectedDocs" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="inprogressDocs" onDrop="handleDrop">
+                        <p:ajax listener="#{docM.onDocValidate}" update="dropArea inprogressDocs" />
+                    </p:droppable>
+
+                    <p:dialog header="Document Detail" widgetVar="docDialog" resizable="false" draggable="false" closable="true" showEffect="fade" hideEffect="fade" modal="true">
+
+                        <p:outputPanel id="display">
+                            <h:panelGrid columns="2" cellpadding="5" rendered="#{not empty docM.selectedDocument}">
+                                <f:facet name="header">
+                                    <p:graphicImage value="#{docM.selectedDocument.type}.gif" />
+                                </f:facet>
+
+                                <h:outputText value="Name:" />
+                                <h:outputText value="#{docM.selectedDocument.name}" style="font-weight:bold"/>
+
+                                <h:outputText value="Date:" />
+                                <h:outputText value="#{docM.selectedDocument.date}" style="font-weight:bold"/>
+
+                                <h:outputText value="Author:" />
+                                <h:outputText value="#{docM.selectedDocument.author}" style="font-weight:bold"/>
+
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form> 
+            
+            </c:if>
+            
             <!-- Fin du bloc "contenu" -->
 
         </ui:define> 

@@ -200,6 +200,29 @@ public class DocumentManaged {
         return list;
     }
     
+    public List<Document> getRejectedDocument() throws SQLException {
+        List<Document> list = new ArrayList<>();
+        //get database connection
+        ConnectBDD b = new ConnectBDD();
+        Connection con = b.getMyConnexion();
+        if (con == null) {
+            throw new SQLException("Can't get database connection");
+        }
+        PreparedStatement ps = con.prepareStatement("Select objects.IdObject, objects.ObjectsName, objects.CreateDate, prop1.IdProperty as Statu, prop1.PropertyValue as statusValue, prop2.PropertyValue as TypeDocValue FROM OBJECTS JOIN LINK prop1 ON OBJECTS.IdObject = prop1.IdObject JOIN LINK prop2 ON prop1.IdObject = prop2.IdObject WHERE prop1.IdProperty=5 and prop1.PropertyValue='Reject' and prop2.IdProperty=6;");
+        //get customer data from database
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+            Document document = new Document();
+            document.setId(result.getInt("IdObject"));
+            document.setName(result.getString("ObjectsName"));
+            document.setDate(result.getDate("CreateDate"));
+            document.setStatut(result.getString("StatusValue"));
+            document.setType(result.getString("TypeDocValue"));
+            list.add(document);
+        }
+        return list;
+    }
+    
     public List<Document> getToValidateDocument() throws SQLException {
         List<Document> list = new ArrayList<>();
         //get database connection
