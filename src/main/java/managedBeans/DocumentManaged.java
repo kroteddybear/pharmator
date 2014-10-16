@@ -183,7 +183,7 @@ public class DocumentManaged {
         if (con == null) {
             throw new SQLException("Can't get database connection");
         }
-        PreparedStatement ps = con.prepareStatement("Select objects.IdObject, objects.ObjectsName, objects.CreateDate, prop1.IdProperty as Statu, prop1.PropertyValue as statusValue, prop2.PropertyValue as TypeDocValue FROM OBJECTS JOIN LINK prop1 ON OBJECTS.IdObject = prop1.IdObject JOIN LINK prop2 ON prop1.IdObject = prop2.IdObject WHERE prop1.IdProperty=5 and prop2.IdProperty=6;");
+        PreparedStatement ps = con.prepareStatement("Select objects.IdObject, objects.ObjectsName, objects.CreateDate, prop1.IdProperty as Statu, prop1.PropertyValue as statusValue, prop2.PropertyValue as TypeDocValue FROM OBJECTS JOIN LINK prop1 ON OBJECTS.IdObject = prop1.IdObject JOIN LINK prop2 ON prop1.IdObject = prop2.IdObject WHERE prop1.IdProperty=5 and prop1.PropertyValue='InProgress' and prop2.IdProperty=6;");
         //get customer data from database
         ResultSet result = ps.executeQuery();
         while (result.next()) {
