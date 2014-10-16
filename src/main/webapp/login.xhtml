@@ -4,13 +4,51 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Connexion</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <h2>Connexion</h2>  
+
+            <h:form>
+                <p:panel id="panel" header="Identification">
+
+                    <p:messages id="msgs" />
+
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <p:outputLabel for="Login" value="Login" />
+                        <p:inputText id="Login" value="#{UserM.currentUser.login}" required="true" label="Login">
+                            <f:validateLength minimum="4" />
+                        </p:inputText>
+                        <p:message for="Login" display="icon" />
+
+                        <p:outputLabel for="Password" value="Password" />
+                        <p:inputText id="Password" value="#{UserM.currentUser.password}" type="Password" label="Password" required="true">
+                            <f:validateLength minimum="1" />
+                            <p:ajax update="msgLastname" event="keyup" />
+                        </p:inputText>
+                        <p:message for="Password" id="msgLastname" display="icon" />
+
+                    </h:panelGrid>
+
+                    <p:commandButton value="Connexion" update="panel" action="#{UserM.connexion()}"  />
+                </p:panel>
+            </h:form>
+
+        </h:body>
+
+    </f:view>
 </html>
+
