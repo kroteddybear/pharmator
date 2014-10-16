@@ -100,7 +100,6 @@ public class DocumentManaged {
 
     public void onDocValidate(DragDropEvent ddEvent) throws SQLException{
         Document doc = ((Document) ddEvent.getData());
-        System.out.println("id = "+ doc.getId());
         this.validateDoc.add(doc);
         ConnectBDD b = new ConnectBDD();
         if (b == null) {
@@ -161,7 +160,7 @@ public class DocumentManaged {
         if (con == null) {
             throw new SQLException("Can't get database connection");
         }
-        PreparedStatement ps = con.prepareStatement("select * from OBJECTS inner join LINK on OBJECTS.IdObject=LINK.IdObject Where IdProperty=5;");
+        PreparedStatement ps = con.prepareStatement("Select objects.IdObject, objects.ObjectsName, objects.CreateDate, prop1.IdProperty as Statu, prop1.PropertyValue as statusValue, prop2.PropertyValue as TypeDocValue FROM OBJECTS JOIN LINK prop1 ON OBJECTS.IdObject = prop1.IdObject JOIN LINK prop2 ON prop1.IdObject = prop2.IdObject WHERE prop1.IdProperty=5 and prop2.IdProperty=6;");
         //get customer data from database
         ResultSet result = ps.executeQuery();
         while (result.next()) {
@@ -169,7 +168,8 @@ public class DocumentManaged {
             document.setId(result.getInt("IdObject"));
             document.setName(result.getString("ObjectsName"));
             document.setDate(result.getDate("CreateDate"));
-            document.setStatut(result.getString("PropertyValue"));
+            document.setStatut(result.getString("StatusValue"));
+            document.setType(result.getString("TypeDocValue"));
             list.add(document);
         }
         return list;
@@ -183,7 +183,7 @@ public class DocumentManaged {
         if (con == null) {
             throw new SQLException("Can't get database connection");
         }
-        PreparedStatement ps = con.prepareStatement("select * from OBJECTS inner join LINK on OBJECTS.IdObject=LINK.IdObject Where IdProperty=5 and PropertyValue='InProgress';");
+        PreparedStatement ps = con.prepareStatement("Select objects.IdObject, objects.ObjectsName, objects.CreateDate, prop1.IdProperty as Statu, prop1.PropertyValue as statusValue, prop2.PropertyValue as TypeDocValue FROM OBJECTS JOIN LINK prop1 ON OBJECTS.IdObject = prop1.IdObject JOIN LINK prop2 ON prop1.IdObject = prop2.IdObject WHERE prop1.IdProperty=5 and prop2.IdProperty=6;");
         //get customer data from database
         ResultSet result = ps.executeQuery();
         while (result.next()) {
@@ -191,7 +191,8 @@ public class DocumentManaged {
             document.setId(result.getInt("IdObject"));
             document.setName(result.getString("ObjectsName"));
             document.setDate(result.getDate("CreateDate"));
-            document.setStatut(result.getString("PropertyValue"));
+            document.setStatut(result.getString("StatusValue"));
+            document.setType(result.getString("TypeDocValue"));
             list.add(document);
         }
         return list;

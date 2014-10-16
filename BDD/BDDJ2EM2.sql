@@ -46,6 +46,13 @@ INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('secondDoc',"20
 INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('thirdDoc',"2014/09/21",'rootFolder');
 INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('forDoc',"2015/09/14",'rootFolder');
 INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('fiveDoc',"2008/09/11",'rootFolder');
+INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('sixDoc',"2008/09/11",'rootFolder');
+INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('sevenDoc',"2008/09/11",'rootFolder');
+INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('heightDoc',"2008/09/11",'rootFolder');
+INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('nineDoc',"2008/09/11",'rootFolder');
+INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('tenDoc',"2008/09/11",'rootFolder');
+INSERT INTO OBJECTS (ObjectsName,CreateDate,ObjectsPath) VALUES ('elevenDoc',"2008/09/11",'rootFolder');
+
 
 INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('Autor');
 INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('validator');
@@ -63,4 +70,21 @@ INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (2,5,"InProgress");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (3,5,"Validate");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (4,5,"Reject");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (5,5,"Archived");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (6,5,"InProgress");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (7,5,"InProgress");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (8,5,"InProgress");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (9,5,"InProgress");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (10,5,"InProgress");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (11,5,"InProgress");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,6,"pdf");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (2,6,"pdf");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (3,6,"pdf");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (4,6,"pdf");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (5,6,"pdf");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (6,6,"pdf");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (7,6,"pdf");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (8,6,"pdf");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (9,6,"pdf");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (10,6,"pdf");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (11,6,"pdf");
 

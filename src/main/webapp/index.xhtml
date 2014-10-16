@@ -19,10 +19,10 @@
             
 <h:form id="docForm">
     <p:fieldset id="inprogressDocField" legend="Inprogress documents">
-        <p:dataGrid id="inprogressDocs" var="doc" value="#{docM.getInprogressDocument()}" columns="3">
+        <p:dataGrid id="inprogressDocs" var="doc" value="#{docM.getInprogressDocument()}" columns="4">
             <p:panel id="pnl" header="#{doc.name}" style="text-align:center">
                 <h:panelGrid columns="1" style="width:100%">
-                    <img src="pdf.gif" style="width: 40px"/>
+                    <p:graphicImage value="#{doc.type}.gif" style="width:40px" />
                 </h:panelGrid>
             </p:panel>
  
@@ -87,7 +87,7 @@
         <p:outputPanel id="display">
             <h:panelGrid columns="2" cellpadding="5" rendered="#{not empty docM.selectedDocument}">
                 <f:facet name="header">
-                    <img src="pdf.gif" style="width: 40px"/>
+                    <p:graphicImage value="#{docM.selectedDocument.type}.gif" />
                 </f:facet>
  
                 <h:outputText value="Name:" />

@@ -14,11 +14,20 @@ public class Document implements Serializable{
     private String statut;
     private Date date;
     private String pathway;
+    private String type;
 
     public Document() {
         name=" ";
         statut=" ";
         pathway=" ";
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getId() {
