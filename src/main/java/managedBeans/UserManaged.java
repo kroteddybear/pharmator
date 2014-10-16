@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import tools.ConnectBDD;
 
 /**
@@ -18,6 +19,7 @@ import tools.ConnectBDD;
  * @author jeremygillet
  */
 @ManagedBean(name="UserM")
+@SessionScoped
 public class UserManaged {
 
     private User currentUser;
