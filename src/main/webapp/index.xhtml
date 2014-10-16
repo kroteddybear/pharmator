@@ -3,10 +3,12 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <!-- appelle le template layoutbis.xhtml -->
     <ui:composition template="template.xhtml"> 
+        
+        <c:if test="#{UserM.currentUser.isValidator == 'true'}">
         <!-- Defini la partie nommée contenu dans le template par le bloc qui suit -->
         <ui:define name="content"> 
                     <script type="text/javascript">
@@ -105,6 +107,8 @@
                             <!-- Fin du bloc "contenu" -->
         </ui:define> 
         <!-- Fin du template "layout" -->
+        </c:if>
+        
     </ui:composition> 
         
         </html>
