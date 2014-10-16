@@ -106,6 +106,7 @@ public class DocumentManaged {
             throw new SQLException("Can't get database connection");
         }
         b.getMyStatement().executeUpdate("update link set PropertyValue='Validate' Where IdProperty=5 and IdObject="+ doc.getId() +";");
+        b.getMyStatement().executeUpdate("update link set PropertyValue='false' Where IdProperty=7 and IdObject="+ doc.getId() +";");
     }
     
     public void onDocRejected(DragDropEvent ddEvent) throws SQLException{
@@ -117,6 +118,7 @@ public class DocumentManaged {
             throw new SQLException("Can't get database connection");
         }
         b.getMyStatement().executeUpdate("update link set PropertyValue='Reject' Where IdProperty=5 and IdObject="+ doc.getId() +";");
+        b.getMyStatement().executeUpdate("update link set PropertyValue='false' Where IdProperty=7 and IdObject="+ doc.getId() +";");
     }
     
     public String setDocument() throws SQLException {
@@ -193,6 +195,30 @@ public class DocumentManaged {
             document.setDate(result.getDate("CreateDate"));
             document.setStatut(result.getString("StatusValue"));
             document.setType(result.getString("TypeDocValue"));
+            list.add(document);
+        }
+        return list;
+    }
+    
+    public List<Document> getToValidateDocument() throws SQLException {
+        List<Document> list = new ArrayList<>();
+        //get database connection
+        ConnectBDD b = new ConnectBDD();
+        Connection con = b.getMyConnexion();
+        if (con == null) {
+            throw new SQLException("Can't get database connection");
+        }
+        PreparedStatement ps = con.prepareStatement("Select objects.IdObject, objects.ObjectsName, objects.CreateDate, prop4.PropertyValue as author, prop3.PropertyValue as toValidate, prop1.IdProperty as Statu, prop1.PropertyValue as statusValue, prop2.PropertyValue as TypeDocValue FROM OBJECTS JOIN LINK prop1 ON OBJECTS.IdObject = prop1.IdObject JOIN LINK prop2 ON prop1.IdObject = prop2.IdObject JOIN LINK prop3 ON prop2.IdObject = prop3.IdObject JOIN LINK prop4 ON prop4.IdObject = prop3.IdObject WHERE prop1.IdProperty=5 and prop3.PropertyValue='true' and prop2.IdProperty=6 and prop4.IdProperty=1;");
+        //get customer data from database
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+            Document document = new Document();
+            document.setId(result.getInt("IdObject"));
+            document.setName(result.getString("ObjectsName"));
+            document.setDate(result.getDate("CreateDate"));
+            document.setStatut(result.getString("StatusValue"));
+            document.setType(result.getString("TypeDocValue"));
+            document.setAuthor(result.getString("author"));
             list.add(document);
         }
         return list;

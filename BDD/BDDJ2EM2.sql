@@ -60,11 +60,24 @@ INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('Agitator');
 INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('NumberOfView');
 INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('Status');
 INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('Type');
+INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('ToValidate');
 
 
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,1,"tedy");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,1,"Teddy DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (2,1,"Teddy DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (3,1,"Teddy DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (4,1,"Teddy DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (5,1,"Teddy DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (6,1,"Teddy DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (7,1,"Teddy DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (8,1,"Teddy DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (9,1,"Teddy DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (10,1,"Teddy DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (11,1,"Teddy DELAVALLEE");
+
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,2,"alan");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (2,2,"moi");
+
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,5,"Unvalidate");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (2,5,"InProgress");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (3,5,"Validate");
@@ -76,15 +89,28 @@ INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (8,5,"InProgress");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (9,5,"InProgress");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (10,5,"InProgress");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (11,5,"InProgress");
+
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,6,"xls");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (2,6,"pdf");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (3,6,"pdf");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (3,6,"docx");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (4,6,"pdf");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (5,6,"xls");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (6,6,"pdf");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (7,6,"pdf");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (7,6,"docx");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (8,6,"xls");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (9,6,"pdf");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (10,6,"pdf");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (11,6,"pdf");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (9,6,"docx");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (10,6,"pptx");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (11,6,"pptx");
+
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,7,"false");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (2,7,"true");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (3,7,"false");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (4,7,"false");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (5,7,"false");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (6,7,"true");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (7,7,"true");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (8,7,"true");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (9,7,"true");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (10,7,"true");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (11,7,"true");
 
