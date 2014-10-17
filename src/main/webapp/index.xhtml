@@ -112,6 +112,17 @@
             <c:if test="#{UserM.currentUser.isValidator == 'false'}">
             
                 <h:form id="docForm">
+                    <p:fieldset id="noValidatedDocField" legend="No validated documents">
+                        <p:dataGrid id="noValidatedDocs" var="doc" value="#{docM.getNoValidateDocument()}" columns="4">
+                            <p:panel id="pnl" header="#{doc.name}" style="text-align:center">
+                                <h:panelGrid columns="1" style="width:100%">
+                                    <p:graphicImage value="#{doc.type}.gif" style="width:40px" />
+                                </h:panelGrid>
+                            </p:panel>
+                            <p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>
+                        </p:dataGrid>
+                    </p:fieldset>
+                    
                     <p:fieldset id="inprogressDocField" legend="Rejected documents">
                         <p:dataGrid id="inprogressDocs" var="doc" value="#{docM.getRejectedDocument()}" columns="4">
                             <p:panel id="pnl" header="#{doc.name}" style="text-align:center">
@@ -119,7 +130,6 @@
                                     <p:graphicImage value="#{doc.type}.gif" style="width:40px" />
                                 </h:panelGrid>
                             </p:panel>
-
                             <p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>
                         </p:dataGrid>
                     </p:fieldset>
