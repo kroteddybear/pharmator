@@ -149,6 +149,8 @@ public class DocumentManaged {
             }       
             b.getMyStatement().executeUpdate("INSERT INTO LINK (IdObject, IdProperty, PropertyValue) VALUES ('"+ID+"', 5,'InProgress');");
             b.getMyStatement().executeUpdate("INSERT INTO LINK (IdObject, IdProperty, PropertyValue) VALUES ('"+ID+"', 6,'"+extension+"');");
+            b.getMyStatement().executeUpdate("INSERT INTO LINK (IdObject, IdProperty, PropertyValue) VALUES ('"+ID+"', 7,'false');");
+            b.getMyStatement().executeUpdate("INSERT INTO LINK (IdObject, IdProperty, PropertyValue) VALUES ('"+ID+"', 1,'RERE');");
                    
             return "success";
         } catch (SQLException ex) {
