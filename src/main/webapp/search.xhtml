@@ -9,37 +9,50 @@
     <ui:composition template="template.xhtml"> 
         <!-- Defini la partie nommée contenu dans le template par le bloc qui suit -->
         <ui:define name="content"> 
+
+
+            <h:form>  
+
+                <p:dataTable id="tableDocument2" var="doc" value="#{docM.getDocument()}" widgetVar="docsTable" sortMode="multiple" rows="30" paginator="true">
+
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Search all fields:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('docsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column filterBy="#{doc.id}" sortBy="#{doc.id}" headerText="Id" footerText="contains" filterMatchMode="contains">
+                        <h:outputText value="#{doc.id}" />
+                    </p:column>
+
+                    <p:column filterBy="#{doc.name}" sortBy="#{doc.name}" headerText="Name" footerText="contains" filterMatchMode="contains">
+                        <h:outputText value="#{doc.name}" />
+                    </p:column>
                     
-                    <p:tab id="tab1" title="Document list">  
-                        <h:panelGrid columns="2" cellpadding="10">                      
+                    <p:column filterBy="#{doc.date}" sortBy="#{doc.date}" headerText="Date" footerText="contains" filterMatchMode="contains">
+                        <h:outputText value="#{doc.date}" />
+                    </p:column>
+                    
+                    <p:column filterBy="#{doc.author}" sortBy="#{doc.author}" headerText="Author" footerText="contains" filterMatchMode="contains">
+                        <h:outputText value="#{doc.author}" />
+                    </p:column>
+                    
+                    <p:column filterBy="#{doc.statut}" sortBy="#{doc.statut}" headerText="Status" footerText="contains" filterMatchMode="contains">
+                        <h:outputText value="#{doc.statut}" />
+                    </p:column>
+                    
+                    <p:column filterBy="#{doc.type}" sortBy="#{doc.type}" headerText="Type" footerText="contains" filterMatchMode="contains">
+                        <h:outputText value="#{doc.type}" />
+                    </p:column>
+                </p:dataTable>
 
-                            <h:form>  
+            </h:form>
 
-                                <p:dataTable id="tableDocument" var="doc" value="#{docM.getDocument()}" sortMode="multiple" rows="10" paginator="true">  
-                                    <f:facet name="header">                         
-                                        Documents 
-                                    </f:facet>
-
-                                    <p:column sortBy="#{doc.name}" headerText="Name">  
-                                        <h:outputText value="#{doc.name}" />  
-                                    </p:column>  
-                                    <p:column sortBy="#{doc.date}" headerText="Date">  
-                                        <h:outputText value="#{doc.date}" />  
-                                    </p:column> 
-                                    <p:column sortBy="#{doc.statut}" headerText="Status">  
-                                        <h:outputText value="#{doc.statut}" />  
-                                    </p:column>
-
-                                </p:dataTable>
-
-                            </h:form>
-
-                        </h:panelGrid>  
-                    </p:tab>  
-                            <!-- Fin du bloc "contenu" -->
+            <!-- Fin du bloc "contenu" -->
         </ui:define> 
         <!-- Fin du template "layout" -->
     </ui:composition> 
-        
-        </html>
+
+</html>
 
