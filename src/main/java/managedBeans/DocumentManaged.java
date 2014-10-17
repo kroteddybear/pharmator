@@ -141,15 +141,14 @@ public class DocumentManaged {
             String paramPathway = this.selectedDocument.getPathway();  
             /* Exécution d'une requête de modification de la BD (INSERT, UPDATE, DELETE, CREATE, etc.). */
             b.getMyStatement().executeUpdate("INSERT INTO OBJECTS (ObjectsName, CreateDate, ObjectsPath) VALUES ('" + paramName + "',  CURDATE(), '"+paramPathway+"' );");
-            System.out.println("0");
-            ResultSet result= b.getMyStatement().executeQuery("SET @lastInsert = LAST_INSERT_ID() ;");
-            System.out.println("1");
-           // int ID = result.getInt("@lastInsert");
-            //System.out.println("valueofLast:"+ID);
-            System.out.println("2");
-            b.getMyStatement().executeUpdate("INSERT INTO LINK (IdObject, IdProperty, PropertyValue) VALUES ('@lastInsert', 5,'InProgress');");
-            System.out.println("3");
-            b.getMyStatement().executeUpdate("INSERT INTO LINK (IdObject, IdProperty, PropertyValue) VALUES ('@lastInsert', 6,'"+extension+"');");
+            ResultSet result= b.getMyStatement().executeQuery("SELECT MAX(IdObject) AS LastInsert FROM OBJECTS ;");
+            int ID = 0;
+            while (result.next()){
+            ID = result.getInt("LastInsert");         
+            b.getMyStatement().executeUpdate("INSERT INTO LINK (IdObject, IdProperty, PropertyValue) VALUES ('"+ID+"', 5,'InProgress');");
+            b.getMyStatement().executeUpdate("INSERT INTO LINK (IdObject, IdProperty, PropertyValue) VALUES ('"+ID+"', 6,'"+extension+"');");
+            }
+                   
             return "success";
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
