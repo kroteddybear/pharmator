@@ -65,17 +65,17 @@ INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('Type');
 INSERT INTO OBJECTSPROPERTIES (PropertyName) VALUES ('ToValidate');
 
 
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,1,"Teddy DELAVALLEE");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (2,1,"Teddy DELAVALLEE");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (3,1,"Teddy DELAVALLEE");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (4,1,"Teddy DELAVALLEE");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (5,1,"Teddy DELAVALLEE");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (6,1,"Teddy DELAVALLEE");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (7,1,"Teddy DELAVALLEE");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (8,1,"Teddy DELAVALLEE");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (9,1,"Teddy DELAVALLEE");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (10,1,"Teddy DELAVALLEE");
-INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (11,1,"Teddy DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,1,"DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (2,1,"DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (3,1,"DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (4,1,"DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (5,1,"DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (6,1,"DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (7,1,"DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (8,1,"DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (9,1,"DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (10,1,"DELAVALLEE");
+INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (11,1,"DELAVALLEE");
 
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (1,2,"alan");
 INSERT INTO LINK (IdObject,IdProperty,PropertyValue) VALUES (2,2,"moi");
