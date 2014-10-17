@@ -125,7 +125,7 @@ public class DocumentManaged {
         //File folder = new File("/UploadFiles");
         this.selectedDocument.setName(FilenameUtils.getName(file.getFileName()));
         String extension = FilenameUtils.getExtension(file.getFileName());
-        this.selectedDocument.setPathway(FilenameUtils.getName(file.getFileName())+"."+extension);
+        this.selectedDocument.setPathway(FilenameUtils.getName(file.getFileName()));
         if(file != null) {
             FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
