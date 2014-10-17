@@ -143,11 +143,12 @@ public class DocumentManaged {
             b.getMyStatement().executeUpdate("INSERT INTO OBJECTS (ObjectsName, CreateDate, ObjectsPath) VALUES ('" + paramName + "',  CURDATE(), '"+paramPathway+"' );");
             ResultSet result= b.getMyStatement().executeQuery("SELECT MAX(IdObject) AS LastInsert FROM OBJECTS ;");
             int ID = 0;
-            while (result.next()){
-            ID = result.getInt("LastInsert");         
+            System.out.println("avant");
+            while (result.next()){        
+            ID = result.getInt("LastInsert");  
+            }       
             b.getMyStatement().executeUpdate("INSERT INTO LINK (IdObject, IdProperty, PropertyValue) VALUES ('"+ID+"', 5,'InProgress');");
             b.getMyStatement().executeUpdate("INSERT INTO LINK (IdObject, IdProperty, PropertyValue) VALUES ('"+ID+"', 6,'"+extension+"');");
-            }
                    
             return "success";
         } catch (SQLException ex) {
