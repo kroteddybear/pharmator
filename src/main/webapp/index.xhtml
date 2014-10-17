@@ -36,7 +36,7 @@
 
                     <p:fieldset id="selectedDocs" legend="Validated documents" style="margin-top:20px">
                         <p:outputPanel id="dropArea">
-                            <h:outputText value="!!!Validate here!!!" rendered="#{empty docM.validateDoc}" style="font-size:24px;" />
+                            <h:outputText value="!!!Validate here!!!" rendered="#{empty docM.validateDoc}" style="font-size:24px; color:green;" />
                             <p:dataTable id="selectedDocsTable" var="doc" value="#{docM.validateDoc}" rendered="#{not empty docM.validateDoc}">
 
 
@@ -58,7 +58,7 @@
 
                     <p:fieldset id="rejectedDocs" legend="Rejected documents" style="margin-top:20px">
                         <p:outputPanel id="dropArea2">
-                            <h:outputText value="!!!Reject here!!!" rendered="#{empty docM.rejectedDoc}" style="font-size:24px;" />
+                            <h:outputText value="!!!Reject here!!!" rendered="#{empty docM.rejectedDoc}" style="font-size:24px; color:red;" />
                             <p:dataTable id="rejectedDocsTable" var="doc" value="#{docM.rejectedDoc}" rendered="#{not empty docM.rejectedDoc}">
 
                                 <p:column headerText="Name">  
